@@ -1,0 +1,21 @@
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["*"]
+name: Sonar Cloud
+jobs:
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        args: >
+          - Dsonar.organization=csharplearning
+          - Dsonar.projectKey=csharplearning
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
